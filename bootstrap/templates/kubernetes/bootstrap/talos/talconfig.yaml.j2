@@ -33,6 +33,10 @@ nodes:
     installDiskSelector:
       serial: "#{ item.disk }#"
     #% endif %#
+    machineDisks:
+      - device: "#{ item.machinedisk }#"
+        partitions:
+          - mountpoint: "#{ item.machinediskmountpoint }#"
     #% if bootstrap_secureboot.enabled %#
     machineSpec:
       secureboot: true
