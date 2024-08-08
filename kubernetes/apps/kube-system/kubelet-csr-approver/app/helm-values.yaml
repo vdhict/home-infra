@@ -1,0 +1,3 @@
+---
+providerRegex: ^(vdhclu01node01|vdhclu01node02|vdhclu01node03)$
+bypassDnsResolution: true
