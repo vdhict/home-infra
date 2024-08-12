@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/corentinth/it-tools
-              tag: v2024.5.13-a0bc346
+              tag: 2024.5.13-a0bc346
             env:
               TZ: Europe/Amsterdam
             probes:
