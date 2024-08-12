@@ -1,10 +1,9 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: it-tools
-  namespace: tools
+  name: &app it-tools
 spec:
   interval: 30m
   chart:
@@ -15,57 +14,51 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      it-tools:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/corentinth/it-tools
               tag: 2024.5.13-a0bc346
             env:
-              TZ: Europe/Amsterdam
+              TZ: "Europe/Amsterdam"
             probes:
               liveness:
                 enabled: false
               readiness:
                 enabled: false
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 100m
-                memory: 500Mi
               limits:
-                memory: 2500Mi
+                memory: 500Mi
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: 80
     ingress:
-      main:
-        enabled: true
+      app:
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: external-utility.${SECRET_DOMAIN}
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
