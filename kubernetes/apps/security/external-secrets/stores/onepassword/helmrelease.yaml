@@ -120,7 +120,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     ingress:
       app:
-        className: nginx
+        className: internal
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
