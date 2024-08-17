@@ -64,12 +64,12 @@ spec:
                     path: /health
                     port: *apiPort
                   initialDelaySeconds: 15
-          resources: &resources
+            resources: &resources
               requests:
                 cpu: 10m
               limits:
                 memory: 256M
-          securityContext: &securityContext
+            securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
