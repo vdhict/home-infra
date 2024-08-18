@@ -78,7 +78,7 @@ spec:
               limits:
                 memory: 512Mi
           pod:
-            hostnetwork: true
+            hostNetwork: true
     defaultPodOptions:
       annotations:
       securityContext:
