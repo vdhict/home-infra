@@ -77,10 +77,8 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-          pod:
-            hostNetwork: true
     defaultPodOptions:
-      annotations:
+      hostNetwork: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
