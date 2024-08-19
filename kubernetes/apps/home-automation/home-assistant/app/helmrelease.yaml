@@ -116,7 +116,9 @@ spec:
               - *host
     persistence:
       config:
-        existingClaim: *app
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 25Gi
         globalMounts:
           - path: /config
       logs:
