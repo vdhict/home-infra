@@ -27,8 +27,6 @@ spec:
   values:
     controllers:
       home-assistant:
-        annotations:
-          reloader.stakater.com/auto: "true"
         initContainers:
           init-db:
             image:
@@ -43,11 +41,11 @@ spec:
               repository: ghcr.io/onedr0p/home-assistant
               tag: 2024.8.2@sha256:ff0f42d9d01470e12e7954694c3833bcbb3917e40276d9ad1bd30870dd0cf81b
             env:
-              HOME_ASSISTANT_EXTERNAL_URL: https://home-assistant.${SECRET_DOMAIN}
-              HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
-              HOME_ASSISTANT_TRUSTED_PROXY_1: ${CLUSTER_POD_CIDR}
-              HOME_ASSISTANT_TRUSTED_PROXY_2: 172.16.2.0/23
-              HOME_ASSISTANT_UNIT_SYSTEM: metric
+              HASS_EXTERNAL_URL: https://home-assistant.${SECRET_DOMAIN}
+              HASS_PURGE_KEEP_DAYS: 30
+              HASS_TRUSTED_PROXY_1: ${CLUSTER_POD_CIDR}
+              HASS_TRUSTED_PROXY_2: 172.16.2.0/23
+              HASS_UNIT_SYSTEM: metric
               TZ: "Europe/Amsterdam"
               POSTGRES_HOST: postgres16-rw.databases.svc.cluster.local
               POSTGRES_DB: home_assistant
