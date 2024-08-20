@@ -85,11 +85,11 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     ingress:
       app:
-        className: internal
+        className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "hass.${SECRET_DOMAIN}"
             paths: &paths
               - path: /
                 service:
@@ -103,7 +103,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "hass-code.${SECRET_DOMAIN}"
             paths: &paths
               - path: /
                 service:
