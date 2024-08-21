@@ -19,6 +19,6 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: l2-pool
 spec:
-  allowFirstLastIPs: "Yes"
+  allowFirstLastIPs: "No"
   blocks:
     - cidr: "172.16.2.0/23"
