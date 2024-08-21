@@ -134,6 +134,8 @@ spec:
     service:
       app:
         type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 172.16.2.243
         controller: *app
         ports:
           http:
