@@ -74,12 +74,8 @@ spec:
             port: *port
           websocket:
             port: 3000
-    serviceMonitor:
-      main:
-        enabled: true # requires https://github.com/kvaster/zwavejs-prom
     ingress:
       main:
-        enabled: true
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
@@ -88,7 +84,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls:
           - hosts:
