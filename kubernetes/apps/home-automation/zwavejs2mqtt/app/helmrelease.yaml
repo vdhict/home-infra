@@ -25,9 +25,9 @@ spec:
       retries: 3
   values:
     controllers:
-      main:
+      zwavejs:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/zwave-js/zwave-js-ui
               tag: 9.18.1
@@ -68,14 +68,15 @@ spec:
               globalMounts:
                 - path: /usr/src/app/store
     service:
-      main:
+      app:
+        controller: zwavejs
         ports:
           http:
             port: *port
           websocket:
             port: 3000
     ingress:
-      main:
+      app:
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
