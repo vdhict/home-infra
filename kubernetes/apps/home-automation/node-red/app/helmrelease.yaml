@@ -65,13 +65,18 @@ spec:
       main:
         enabled: true
         className: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
-          - host: "nodered.${SECRET_DOMAIN_NAME}"
-            paths:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths: &paths
               - path: /
                 service:
                   identifier: main
                   port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true
