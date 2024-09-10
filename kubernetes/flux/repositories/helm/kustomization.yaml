@@ -20,3 +20,4 @@ resources:
   - ./external-secrets.yaml
   - ./cloudnative-pg.yaml
   - ./intel.yaml
+  - ./influxdata.yaml
