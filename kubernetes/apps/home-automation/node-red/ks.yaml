@@ -6,7 +6,7 @@ metadata:
   name: node-red
   namespace: flux-system
 spec:
-  targetNamespace: home
+  targetNamespace: home-automation
   commonMetadata:
     labels:
       app.kubernetes.io/name: &app node-red
