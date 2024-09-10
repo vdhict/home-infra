@@ -13,7 +13,7 @@ spec:
   path: ./kubernetes/main/apps/home-automation/node-red/app
   sourceRef:
     kind: GitRepository
-    name: homelab-kubernetes
+    name: home-kubernetes
   postBuild:
     substitute:
       APP: *app
