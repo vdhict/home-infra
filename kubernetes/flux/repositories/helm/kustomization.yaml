@@ -21,3 +21,4 @@ resources:
   - ./cloudnative-pg.yaml
   - ./intel.yaml
   - ./influxdata.yaml
+  - ./grafana.yaml
