@@ -71,9 +71,9 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default-folder
-          - name: ceph
+          - name: longhorn
             orgId: 1
-            folder: Ceph
+            folder: Longhorn
             type: file
             disableDeletion: false
             editable: true
