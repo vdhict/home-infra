@@ -1,0 +1,20 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-provision-csi
+  labels:
+    kustomize.toolkit.fluxcd.io/substitute: "disabled"
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 172.16.2.246
+  share: /volume1/cluster
+allowVolumeExpansion: true
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions:
+  - nfsvers=4.1
+  - nconnect=8
+  - hard
+  - noatime
+  - nodiratime
