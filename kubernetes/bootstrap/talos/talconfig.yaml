@@ -29,6 +29,11 @@ nodes:
       serial: "2244E6801787"
     talosImageURL: factory.talos.dev/installer/ff7d469e20dd413c61df4d0ea5d0a2410b48835715789125c9c8777ba8994370
     controlPlane: true
+    machineDisks:
+      - device: /dev/sda # The name of the disk to use.
+          # A list of partitions to create on the disk.
+        partitions:
+          - mountpoint: /var/mnt/sata
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "88:ae:dd:62:1b:3c"
@@ -47,6 +52,11 @@ nodes:
       serial: "2244E6801A88"
     talosImageURL: factory.talos.dev/installer/ff7d469e20dd413c61df4d0ea5d0a2410b48835715789125c9c8777ba8994370
     controlPlane: true
+    machineDisks:
+      - device: /dev/sda # The name of the disk to use.
+          # A list of partitions to create on the disk.
+        partitions:
+          - mountpoint: /var/mnt/sata
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "88:ae:dd:62:1b:3c"
@@ -65,6 +75,11 @@ nodes:
       serial: "2244E6801A85"
     talosImageURL: factory.talos.dev/installer/ff7d469e20dd413c61df4d0ea5d0a2410b48835715789125c9c8777ba8994370
     controlPlane: true
+    machineDisks:
+      - device: /dev/sda # The name of the disk to use.
+          # A list of partitions to create on the disk.
+        partitions:
+          - mountpoint: /var/mnt/sata
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "88:ae:dd:62:1b:3c"
