@@ -44,12 +44,11 @@ spec:
       backupTarget: "nfs://172.16.2.246:/volume1/clusterbackup"
       defaultDataLocality: best-effort
       defaultReplicaCount: 3
-      createDefaultDiskLabeledNodes: true
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
       storageMinimalAvailablePercentage: 5
-      StorageOverProvisioningPercentage: 110
-      defaultDataPath: /var/mnt/sata
+      storageOverProvisioningPercentage: 110
+      defaultDataPath: "/var/mnt/sata/"
     resources:
       requests:
         cpu: 100m
