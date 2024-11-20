@@ -43,6 +43,10 @@ nodes:
     talosImageURL: factory.talos.dev/installer/#{ item.schematic_id | default(bootstrap_schematic_id, true) }#
     #% endif %#
     controlPlane: #{ (item.controller) | string | lower }#
+    machineDisks:
+      - device: "#{ item.machinedisk }#"
+        partitions:
+          - mountpoint: "#{ item.machinediskmountpoint }#"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "#{ item.mac_addr | lower }#"
