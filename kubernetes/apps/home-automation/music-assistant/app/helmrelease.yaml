@@ -1,89 +1,111 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
-# yaml-language-server: $schema=https://github.com/bjw-s/helm-charts/blob/6d23aa66ca7a707249b7f4c2ca28bf46e4ab1357/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app node-red
+  name: &app music-assistant
+  namespace: media
 spec:
-  releaseName: node-red
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
       version: 3.5.1
       sourceRef:
         kind: HelmRepository
-        name: bjw-s
+        name: bjw-s-charts
         namespace: flux-system
-      interval: 15m
+
   maxHistory: 3
+
   install:
+    createNamespace: true
     remediation:
       retries: 3
+
   upgrade:
     cleanupOnFail: true
     remediation:
       retries: 3
+
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: home-assistant
-      namespace: home-automation
+
   values:
     controllers:
       main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+
         pod:
+          hostNetwork: true
           securityContext:
             runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
+            runAsGroup: 1001
+            fsGroup: 1001
             fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
+
         containers:
           main:
             image:
-              repository: docker.io/nodered/node-red
-              tag: 4.0.5@sha256:7b635f720d9d1aba676925a93fcf20811bbb62b476752b896177faccb28e5ee9
+              repository: ghcr.io/music-assistant/server
+              tag: 2.4.0b7
+
             env:
               TZ: "Europe/Amsterdam"
-              NODE_RED_ENABLE_PROJECTS: "true"
-              NODE_RED_ENABLE_SAFE_MODE: "false"
+
             resources:
               requests:
-                memory: 350Mi
-                cpu: 25m
+                cpu: 500m
+                memory: 2500Mi
               limits:
-                memory: 500Mi
+                memory: 2500Mi
+
     service:
       main:
         controller: main
-        type: ClusterIP
+        annotations:
+          io.cilium/lb-ipam-ips: 172.16.2.238
+        type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           http:
-            port: 1880
+            port: &httpPort 8095
+          http2:
+            port: 1780
+          snapserver:
+            port: 1704
+
     ingress:
       main:
-        enabled: true
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths: &paths
+            paths:
               - path: /
                 service:
                   identifier: main
-                  port: http
+                  port: *httpPort
         tls:
           - hosts:
               - *host
+
     persistence:
-      config:
-        enabled: true
+      media:
+        type: nfs
+        server: 172.16.2.246
+        path: /volume1/MULTIMEDIA/MUSIC
+        globalMounts:
+          - path: /media
+
+      data:
         type: persistentVolumeClaim
-        size: 5Gi
         accessMode: ReadWriteOnce
-        advancedMounts:
-          main:
-            main:
-              - path: /data
+        size: 10Gi
+        globalMounts:
+          - path: /data
