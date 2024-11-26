@@ -39,7 +39,6 @@ spec:
           reloader.stakater.com/auto: "true"
 
         pod:
-          hostNetwork: true
           securityContext:
             runAsUser: 1000
             runAsGroup: 1001
@@ -91,9 +90,6 @@ spec:
                 service:
                   identifier: main
                   port: *httpPort
-        tls:
-          - hosts:
-              - *host
 
     persistence:
       media:
