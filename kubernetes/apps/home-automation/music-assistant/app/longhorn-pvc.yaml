@@ -31,8 +31,5 @@ spec:
   storageClassName: music-assistant-data-storage-class
   csi:
     driver: driver.longhorn.io
-    fsType: xfs
-    volumeAttributes:
-      numberOfReplicas: "2"
-      staleReplicaTimeout: "2880"
-    volumeHandle: music-assistant-data-xfs
+    fsType: ext4
+    volumeHandle: music-assistant-data-ext4
