@@ -33,7 +33,7 @@ spec:
 
   values:
     controllers:
-      main:
+      music-assistant:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
@@ -65,14 +65,14 @@ spec:
 
     service:
       main:
-        controller: main
+        controller: music-assistant
         annotations:
-          io.cilium/lb-ipam-ips: 172.16.2.238
+          io.cilium/lb-ipam-ips: 172.16.2.245
         type: LoadBalancer
         externalTrafficPolicy: Local
         ports:
           http:
-            port: 8095
+            port: &httpPort 8095
           http2:
             port: 1780
           snapserver:
@@ -90,9 +90,6 @@ spec:
                 service:
                   identifier: main
                   port: http
-        tls:
-          - hosts:
-              - *host
 
     persistence:
       media:
