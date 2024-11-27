@@ -72,7 +72,7 @@ spec:
         externalTrafficPolicy: Local
         ports:
           http:
-            port: &httpPort 8095
+            port: 8095
           http2:
             port: 1780
           snapserver:
@@ -84,12 +84,15 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "music.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: main
-                  port: *httpPort
+                  port: http
+        tls:
+          - hosts:
+              - *host
 
     persistence:
       media:
