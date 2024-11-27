@@ -62,7 +62,8 @@ spec:
                 memory: 2500Mi
               limits:
                 memory: 2500Mi
-
+    defaultPodOptions:
+      hostNetwork: true
     service:
       main:
         controller: music-assistant
