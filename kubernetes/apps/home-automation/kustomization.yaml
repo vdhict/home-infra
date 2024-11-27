@@ -9,5 +9,5 @@ resources:
   - esphome/ks.yaml
   - zwavejs2mqtt/ks.yaml
   - node-red/ks.yaml
-  - music-assistant/ks.yaml
+#  - music-assistant/ks.yaml
 

@@ -101,8 +101,4 @@ spec:
           - path: /media
 
       data:
-        type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        size: 10Gi
-        globalMounts:
-          - path: /data
+        existingClaim: music-assistant-data-pvc
