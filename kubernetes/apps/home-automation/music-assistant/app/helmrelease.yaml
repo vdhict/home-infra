@@ -32,24 +32,13 @@ spec:
 
   values:
     controllers:
-      music-assistant:
+      *app :
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
 
-        pod:
-          hostNetwork: true
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 100
-
         containers:
-          main:
+          *app :
             image:
               repository: ghcr.io/music-assistant/server
               tag: 2.4.0b7
@@ -60,13 +49,23 @@ spec:
             resources:
               requests:
                 cpu: 500m
-                memory: 2500Mi
+                memory: 1024Mi
               limits:
                 memory: 2500Mi
 
+    defaultPodOptions:
+      hostNetwork: true
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
     service:
-      main:
-        controller: music-assistant
+      *app :
+        controller: *app
         # annotations:
         #   "lbipam.cilium.io/ips": "172.16.2.238"
         # type: LoadBalancer
@@ -76,7 +75,7 @@ spec:
             port: 8095
 
     ingress:
-      main:
+      *app :
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
@@ -85,7 +84,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: *app
                   port: http
 
     persistence:
@@ -93,16 +92,12 @@ spec:
         type: nfs
         server: 172.16.2.246
         path: /volume1/MULTIMEDIA/MUSIC
-        advancedMounts:
-          music-assistant:
-            main:
-              - path: /media
+        globalMounts:
+          - path: /media
 
       data:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 10Gi
-        advancedMounts:
-          music-assistant:
-            main:
-              - path: /data
+        globalMounts:
+          - path: /data
