@@ -39,10 +39,12 @@ spec:
           reloader.stakater.com/auto: "true"
 
         pod:
+          hostNetwork: true
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1001
-            fsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 100
@@ -66,17 +68,13 @@ spec:
     service:
       main:
         controller: music-assistant
-        annotations:
-          "lbipam.cilium.io/ips": "172.16.2.238"
-        type: LoadBalancer
-        externalTrafficPolicy: Local
+        # annotations:
+        #   "lbipam.cilium.io/ips": "172.16.2.238"
+        # type: LoadBalancer
+        # externalTrafficPolicy: Local
         ports:
           http:
-            port: &httpPort 8095
-          http2:
-            port: 1780
-          snapserver:
-            port: 1704
+            port: 8095
 
     ingress:
       main:
@@ -96,12 +94,16 @@ spec:
         type: nfs
         server: 172.16.2.246
         path: /volume1/MULTIMEDIA/MUSIC
-        globalMounts:
-          - path: /media
+        advancedMounts:
+          music-assistant:
+            main:
+              - path: /media
 
       data:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 10Gi
-        globalMounts:
-          - path: /data
+        advancedMounts:
+          music-assistant:
+            main:
+              - path: /data
