@@ -1,7 +1,9 @@
 ---
 autoDirectNodeRoutes: true
 bpf:
-  masquerade: false # Required for Talos `.machine.features.hostDNS.forwardKubeDNSToHost`
+  datapathMode: netkit
+  hostLegacyRouting: true
+  masquerade: true # Required for Talos `.machine.features.hostDNS.forwardKubeDNSToHost` - For now changed to true due to cilium/talos issue
 cgroup:
   automount:
     enabled: false
