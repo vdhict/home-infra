@@ -1,7 +1,12 @@
 ---
 autoDirectNodeRoutes: true
+bandwidthManager:
+  enabled: true
+  bbr: true
 bpf:
-  masquerade: false # Required for Talos `.machine.features.hostDNS.forwardKubeDNSToHost` - For now changed to true due to cilium/talos issue
+  masquerade: true # Required for Talos `.machine.features.hostDNS.forwardKubeDNSToHost` - For now changed to true due to cilium/talos issue
+  preallocateMaps: true
+  tproxy: true
 cgroup:
   automount:
     enabled: false
@@ -21,7 +26,7 @@ hubble:
   enabled: false
 ipam:
   mode: kubernetes
-ipv4NativeRoutingCIDR: "10.70.0.0/16"
+ipv4NativeRoutingCIDR: "10.69.0.0/16"
 k8sServiceHost: 127.0.0.1
 k8sServicePort: 7445
 kubeProxyReplacement: true
@@ -55,5 +60,3 @@ securityContext:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
-socketLB:
-  hostNamespaceOnly: true
