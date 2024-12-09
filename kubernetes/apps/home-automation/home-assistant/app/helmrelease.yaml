@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.12.1@sha256:9f01866a8ae1ba747a64be0ee1497a21c73679e27de008799e7c3fcd25e6a7cb
+              tag: 2024.11.3
             env:
               HASS_EXTERNAL_URL: https://home-assistant.${SECRET_DOMAIN}
               HASS_PURGE_KEEP_DAYS: 30
@@ -48,7 +48,6 @@ spec:
               POSTGRES_HOST: postgres16-rw.databases.svc.cluster.local
               POSTGRES_DB: home_assistant
               HASS_HTTP_TRUSTED_PROXY_1: 10.96.0.0/16
-              HASS_HTTP_TRUSTED_PROXY_2: 10.42.0.0/16
             envFrom: *envFrom
             resources:
               requests:
