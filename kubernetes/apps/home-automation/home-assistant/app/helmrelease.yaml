@@ -48,6 +48,8 @@ spec:
               POSTGRES_HOST: postgres16-rw.databases.svc.cluster.local
               POSTGRES_DB: home_assistant
               HASS_HTTP_TRUSTED_PROXY_1: 10.96.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_2: 172.16.2.0/23
+              HASS_HTTP_TRUSTED_PROXY_3: 192.168.12.0/24
             envFrom: *envFrom
             resources:
               requests:
@@ -132,9 +134,6 @@ spec:
           - path: /config/tts
     service:
       app:
-        type: LoadBalancer
-        annotations:
-          "lbipam.cilium.io/ips": "172.16.2.239"
         controller: *app
         ports:
           http:
