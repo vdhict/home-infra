@@ -66,3 +66,4 @@ spec:
       hostname: influx.${SECRET_DOMAIN}
       path: /
       tls: true
+
