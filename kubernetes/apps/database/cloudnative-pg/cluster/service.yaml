@@ -6,14 +6,14 @@ metadata:
   namespace: database
   annotations:
     external-dns.alpha.kubernetes.io/hostname: postgres.${SECRET_DOMAIN}
+    lbipam.cilium.io/ips: 172.16.2.239
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Cluster
   ports:
     - name: postgres
       port: 5432
       protocol: TCP
       targetPort: 5432
   selector:
-    postgresql: postgres16
-    role: primary
+    cnpg.io/cluster: postgres16
+    cnpg.io/instanceRole: primary
