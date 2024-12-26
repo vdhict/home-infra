@@ -9,7 +9,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
-  storageClassName: "nfs-provision-csi"
+  storageClassName: ""
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 172.16.2.246
@@ -29,7 +29,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: "nfs-provision-csi"
+  storageClassName: ""
   resources:
     requests:
       storage: 1Ti
