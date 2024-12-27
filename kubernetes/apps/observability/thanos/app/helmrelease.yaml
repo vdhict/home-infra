@@ -31,13 +31,13 @@ spec:
       registry: quay.io
       repository: thanos/thanos
       tag: v0.34.1
-    existingObjstoreSecret: thanos-objstore
+    existingObjstoreSecret: thanos
     queryFrontend:
       enabled: true
       replicaCount: 1
       ingress:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         hostname: "thanos-query-frontend.${SECRET_DOMAIN}"
         tls: true
         extraTls:
@@ -51,7 +51,7 @@ spec:
       replicaLabel: ["__replica__"]
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
-        sidecarsNamespace: monitoring
+        sidecarsNamespace: observability
     bucketweb:
       enabled: true
       replicaCount: 1
@@ -65,14 +65,14 @@ spec:
       retentionResolution1h: 90d
       persistence:
         enabled: true
-        storageClass: local-path
+        storageClass: longhorn
         size: 10Gi
     storegateway:
       enabled: true
       replicaCount: 1
       persistence:
         enabled: true
-        storageClass: local-path
+        storageClass: longhorn
         size: 10Gi
     ruler:
       enabled: true
@@ -93,10 +93,9 @@ spec:
                   severity: critical
       persistence:
         enabled: true
-        storageClass: local-path
+        storageClass: longhorn
         size: 10Gi
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
-  
