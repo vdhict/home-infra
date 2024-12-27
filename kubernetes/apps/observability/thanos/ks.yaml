@@ -12,7 +12,6 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: dragonfly-operator
-      namespace: database
     - name: external-secrets-stores
   path: ./kubernetes/apps/observability/thanos/app
   prune: true
