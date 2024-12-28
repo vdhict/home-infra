@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-  - host: loki.${CLUSTER_DOMAIN}
+  - host: loki.${SECRET_DOMAIN}
     http:
       paths:
       - path: /
