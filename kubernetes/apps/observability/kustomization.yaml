@@ -9,4 +9,5 @@ resources:
   - ./thanos/ks.yaml
   - ./speedtest-exporter/ks.yaml
   - ./loki/ks.yaml
+  - ./unpoller/ks.yaml
 
