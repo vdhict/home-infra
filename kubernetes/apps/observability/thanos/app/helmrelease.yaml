@@ -27,6 +27,10 @@ spec:
   #   - name: local-path-provisioner
   #     namespace: kube-system
   values:
+    global:
+      security:
+  # allowing insecure image to work around change in bitnami chart handling
+        allowInsecureImages: true
     image:
       registry: quay.io
       repository: thanos/thanos
