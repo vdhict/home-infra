@@ -13,7 +13,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 172.16.2.246
-    path: /volume1/cluster/minio
+    path: /volume1/minio
   mountOptions:
     - nfsvers=3
     - nconnect=8
