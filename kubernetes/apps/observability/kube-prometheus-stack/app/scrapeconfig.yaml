@@ -81,5 +81,5 @@ spec:
   staticConfigs:
     - targets: ["unpoller.observability.svc.cluster.local:9130"]
   metricsPath: /scrape
-  scrape_interval: 30s
+  scrapeInterval: 30s
 
