@@ -33,6 +33,8 @@ spec:
         envFrom:
           - secretRef:
               name: &secret grafana-secret
+    admin:
+      existingSecret: grafana-admin-secret
     replicas: 1
     env:
       GF_ANALYTICS_CHECK_FOR_UPDATES: false
