@@ -34,7 +34,7 @@
 
 7. CLIENT_ID : XXX #random 72+ userid
     ```shell
-    k -n security exec authelia-69bc444d56-pcnb7 -- authelia crypto rand --length 72 --charset rfc3986
+    docker run --rm authelia/authelia:latest authelia crypto rand --length 72 --charset rfc3986
     ```
 
 8. CLIENT_SECRET : XXX #random 72+ pass
