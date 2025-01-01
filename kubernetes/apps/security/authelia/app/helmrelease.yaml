@@ -29,7 +29,7 @@ spec:
     keepHistory: false
   dependsOn:
     - name: lldap
-    - name: smtp-relay
+#    - name: smtp-relay
   values:
     defaultPodOptions:
       enableServiceLinks: false
