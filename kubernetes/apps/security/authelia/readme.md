@@ -29,7 +29,7 @@
 
 6. SECRET_AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY : XXX #RSA private key
     ```shell
-    sudo docker run -u "$(id -u):$(id -g)" -v "$(pwd)":/keys authelia/authelia:latest authelia crypto pair rsa generate --bits 4096 --directory /keys
+    docker run --rm authelia/authelia sh -c "authelia crypto certificate rsa generate --common-name bluejungle.net && cat private.pem && cat public.crt"
     ```
 
 7. CLIENT_ID : XXX #random 72+ userid
