@@ -57,14 +57,30 @@ spec:
         check_for_plugin_updates: false
         reporting_enabled: false
       auth:
-        oauth_auto_login: false
+        oauth_auto_login: true
+        signout_redirect_url: "https://auth.bluejungle.net/logout"
         oauth_allow_insecure_email_lookup: true
       auth.generic_oauth:
-        enabled: false
+        enabled: true
+        name: Authelia
+        client_id: grafana
+        scopes: openid profile email groups
+        empty_scopes: false
+        auth_url: https://auth.bluejungle.net/api/oidc/authorization
+        token_url: https://auth.bluejungle.net/api/oidc/token
+        api_url: https://auth.bluejungle.net/api/oidc/userinfo
+        login_attribute_path: preferred_username
+        groups_attribute_path: groups
+        name_attribute_path: name
+        use_pkce: true
+      auth.generic_oauth.group_mapping:
+        role_attribute_path: |
+          contains(groups[*], 'admin') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
+        org_id: 1
       auth.basic:
         enabled: true
       auth.anonymous:
-        enabled: true
+        enabled: false
       news:
         news_feed_enabled: false
     dashboardProviders:
