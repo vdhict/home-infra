@@ -40,11 +40,24 @@ session:
 notifier:
   disable_startup_check: true
   smtp:
-    address: smtp-relay.default.svc.cluster.local.:2525
-    disable_require_tls: true
+    address: mail.smtp2go.com:2525
+    sender: "Authelia <authelia@${SECRET_DOMAIN}>"
+    username: "{{ .SMTP_USER }}"
+    password: "{{ .SMTP_PASS }}"
+
+totp:
+  disable: false
+  issuer: "Authelia (${SECRET_DOMAIN})"
 
 duo_api:
   disable: true
+
+webauthn:
+  disable: false
+  display_name: "Authelia (${SECRET_DOMAIN})"
+  attestation_conveyance_preference: indirect
+  user_verification: preferred
+  timeout: 60s
 
 access_control:
   ## Default policy can either be 'bypass', 'one_factor', 'two_factor' or 'deny'. It is the policy applied to any
