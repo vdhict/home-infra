@@ -11,7 +11,6 @@ authentication_backend:
     additional_groups_dn: ou=groups
     groups_filter: (member={dn})
     user: uid=admin,ou=people,dc=home,dc=arpa
-    password: "$${LDAP_PASS}"
     attributes:
       username: uid
       display_name: displayName
