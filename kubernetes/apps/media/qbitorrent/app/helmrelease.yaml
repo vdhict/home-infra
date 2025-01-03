@@ -89,7 +89,9 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: *app
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 5Gi
         globalMounts:
           - path: /config
       downloads:
