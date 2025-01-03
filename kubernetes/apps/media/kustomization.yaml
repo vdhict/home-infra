@@ -6,4 +6,4 @@ resources:
   - ./plex/ks.yaml
   - ./readarr/ks.yaml
   - ./calibre/ks.yaml
-#  - ./qbittorrent/ks.yaml
+  - ./qbittorrent/ks.yaml
