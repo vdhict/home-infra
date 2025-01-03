@@ -135,10 +135,6 @@ spec:
     service:
       app:
         controller: *app
-        annotations:
-          "lbipam.cilium.io/ips": "172.16.2.235"
-        type: LoadBalancer
-        externalTrafficPolicy: Local
         ports:
           http:
             port: 8123
