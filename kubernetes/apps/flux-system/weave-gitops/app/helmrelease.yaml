@@ -1,20 +1,22 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: weave-gitops
+  namespace: flux-system
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: weave-gitops
       version: 4.0.36
       sourceRef:
         kind: HelmRepository
-        name: weaveworks-charts
+        name: weave-gitops
         namespace: flux-system
-  maxHistory: 2
+  maxHistory: 3
   install:
+    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -26,13 +28,12 @@ spec:
   values:
     adminUser:
       create: true
-      createSecret: false
       username: admin
     ingress:
       enabled: true
       className: internal
       hosts:
-        - host: &host flux.${SECRET_DOMAIN}
+        - host: &host "gitops.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
@@ -51,4 +52,9 @@ spec:
           resources: ["terraforms"]
           verbs: ["get", "list", "patch"]
     podAnnotations:
-      secret.reloader.stakater.com/reload: cluster-user-auth
+      secret.reloader.stakater.com/reload: weave-gitops-secret
+  valuesFrom:
+    - kind: Secret
+      name: weave-gitops-secret
+      valuesKey: adminPasswordHash
+      targetPath: adminUser.passwordHash
