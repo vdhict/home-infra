@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: promtail-syslog
   namespace: logging
+annotations:
+    external-dns.alpha.kubernetes.io/hostname: syslog.${SECRET_DOMAIN}
+    lbipam.cilium.io/ips: 172.16.2.235
 spec:
   type: LoadBalancer
   ports:
