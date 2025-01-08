@@ -6,9 +6,13 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - name: syslog
+    - name: syslog-udp
       port: 514
       targetPort: 514
       protocol: UDP
+    - name: syslog-tcp
+      port: 514
+      targetPort: 514
+      protocol: TCP
   selector:
     app: promtail
