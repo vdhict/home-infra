@@ -24,10 +24,11 @@ spec:
     fullnameOverride: promtail
     extraPorts:
       syslog:
-        name: tcp-syslog
+        name: udp-syslog
         containerPort: 1514
         service:
           port: 1514
+          protocol: udp
           type: LoadBalancer
           externalTrafficPolicy: Local
         annotations:
@@ -41,7 +42,7 @@ spec:
           - job_name: syslog
             syslog:
               listen_address: 0.0.0.0:1514
-              listen_protocol: tcp
+              listen_protocol: udp
               idle_timeout: 60s
               label_structured_data: true
               labels:
