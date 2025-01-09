@@ -28,11 +28,26 @@ spec:
     serviceMonitor:
       enabled: true
     scrape_configs:
-        - job_name: syslog
+        - job_name: syslog-tcp
           syslog:
-            listen_address: 0.0.0.0:514
+            listen_address: 0.0.0.0:1514
+            listen_protocol: tcp
             idle_timeout: 60s
             label_structured_data: true
             labels:
               job: syslog
-              host: __syslog_message_hostname
+          relabel_configs:
+            - source_labels: ['__syslog_message_hostname']
+              target_label: 'host'
+        - job_name: syslog-udp
+          syslog:
+            listen_address: 0.0.0.0:514
+            listen_protocol: udp
+            idle_timeout: 60s
+            label_structured_data: true
+            labels:
+              job: syslog
+          relabel_configs:
+            - source_labels: ['__syslog_message_hostname']
+              target_label: 'host'
+

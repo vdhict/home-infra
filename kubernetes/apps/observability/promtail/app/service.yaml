@@ -15,8 +15,8 @@ spec:
       targetPort: 514
       protocol: UDP
     - name: syslog-tcp
-      port: 514
-      targetPort: 514
+      port: 1514
+      targetPort: 1514
       protocol: TCP
   selector:
     app: promtail
