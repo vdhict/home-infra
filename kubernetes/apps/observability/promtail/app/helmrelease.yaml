@@ -30,9 +30,9 @@ spec:
           port: 1514
           type: LoadBalancer
           externalTrafficPolicy: Local
-          annotations:
-            external-dns.alpha.kubernetes.io/hostname: syslog.${SECRET_DOMAIN}
-            lbipam.cilium.io/ips: 172.16.2.235
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: syslog.${SECRET_DOMAIN}
+          lbipam.cilium.io/ips: 172.16.2.235
     config:
       clients:
         - url: http://loki-headless.observability.svc.cluster.local:3100/loki/api/v1/push
