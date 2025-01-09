@@ -26,9 +26,9 @@ spec:
       syslog:
         name: udp-syslog
         containerPort: 1514
+        protocol: UDP
         service:
           port: 1514
-          protocol: udp
           type: LoadBalancer
           externalTrafficPolicy: Local
         annotations:
