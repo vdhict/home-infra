@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./plex/ks.yaml
-  - ./readarr/ks.yaml
-  - ./calibre/ks.yaml
+#  - ./readarr/ks.yaml
+#  - ./calibre/ks.yaml
   - ./qbittorrent/ks.yaml
