@@ -13,5 +13,5 @@ spec:
         - feature: usb.device
           matchExpressions:
             class: { op: In, value: ["02"] }
-            vendor: { op: In, value: ["10C4"] }
-            device: { op: In, value: ["EA60"] }
+            vendor: { op: In, value: ["10c4"] }
+            device: { op: In, value: ["ea60"] }
