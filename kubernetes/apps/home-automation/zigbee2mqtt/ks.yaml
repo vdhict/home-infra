@@ -13,7 +13,6 @@ spec:
     - name: mosquitto
     - name: external-secrets-stores
     - name: longhorn
-    - name: node-feature-discovery-rules
   path: ./kubernetes/apps/home-automation/zigbee2mqtt/app
   prune: true
   sourceRef:

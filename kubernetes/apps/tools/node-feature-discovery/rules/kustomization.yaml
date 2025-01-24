@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./intel-dp-devices.yaml
   - ./aeotec-zwave-device.yaml
-  - ./zbt1-zigbee-device.yaml
+
