@@ -44,6 +44,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: true
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 8080
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
+              ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_ENABLED: true
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_STATUS_TOPIC: homeassistant/status
               ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: true
               ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
@@ -53,7 +54,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: false
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyUSB0
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://slzb.vdh.lan:6638
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
             envFrom:
               - secretRef:
@@ -107,12 +108,6 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/log
-      usb:
-        type: hostPath
-        hostPath: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_42bee1d1b29aed119d688208a8669f5d-if00-port0
-        hostPathType: CharDevice
-        globalMounts:
-          - path: /dev/ttyUSB0
     service:
       app:
         controller: *app
