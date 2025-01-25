@@ -10,5 +10,5 @@ resources:
   - zwavejs2mqtt/ks.yaml
   - node-red/ks.yaml
   - music-assistant/ks.yaml
-  - zigbee2mqtt/ks.yaml
+#  - zigbee2mqtt/ks.yaml
 
