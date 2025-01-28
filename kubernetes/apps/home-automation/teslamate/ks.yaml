@@ -13,7 +13,7 @@ spec:
     - name: mosquitto
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
   interval: 30m
   retryInterval: 1m
   timeout: 5m
