@@ -12,4 +12,5 @@ resources:
   - music-assistant/ks.yaml
   - zigbee2mqtt/ks.yaml
   - scrypted/ks.yaml
+  - teslamate/ks.yaml
 
