@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/home-assistant
-              tag: 2025.2.4
+              tag: 2025.2.5
             env:
               HASS_EXTERNAL_URL: https://home-assistant.${SECRET_DOMAIN}
               HASS_PURGE_KEEP_DAYS: 30
