@@ -11,7 +11,7 @@ resources:
   - node-red/ks.yaml
   - music-assistant/ks.yaml
   - zigbee2mqtt/ks.yaml
-#  - scrypted/ks.yaml
+  - scrypted/ks.yaml
   - teslamate/ks.yaml
   - mealie/ks.yaml
 
