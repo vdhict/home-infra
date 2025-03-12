@@ -1,10 +1,11 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: teslamate
+  name: &app teslamate
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: app-template
@@ -13,7 +14,7 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
+  maxHistory: 3
   install:
     createNamespace: true
     remediation:
@@ -22,6 +23,7 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+      strategy: rollback
   uninstall:
     keepHistory: false
   values:
@@ -30,25 +32,50 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          01-init-db:
+          init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-            envFrom: &envFrom
+              tag: 16.8
+              pullPolicy: Always
+            envFrom:
               - secretRef:
                   name: teslamate-secret
         containers:
           app:
             image:
               repository: teslamate/teslamate
-              tag: 1.32.0
+              tag: 1.30.1
             env:
-              TZ: "Europe/Amsterdam"
+              TZ: ${TIMEZONE}
               DISABLE_MQTT: "false"
-              MQTT_HOST: mosquitto.home-automation.svc.cluster.local
-            envFrom: *envFrom
-
-
+              MQTT_HOST: mosquitto.automation.svc.cluster.local
+            envFrom:
+              - secretRef:
+                  name: teslamate-secret
+            resources:
+              requests:
+                cpu: 18m
+                memory: 338Mi
+              limits:
+                memory: 1024Mi
+          agile:
+            image:
+              repository: mattjeanes/teslamateagile
+              tag: v1.17.0@sha256:dc0d6eefb4500e34d5125722bcda859b12c030222820fbf81e9df5aa9414a072
+            env:
+              TeslaMate__UpdateIntervalSeconds: 300
+              TeslaMate__GeofenceId: 4
+              TeslaMate__EnergyProvider: HomeAssistant
+              TeslaMate__LookbackDays: 7
+              TeslaMate__Phases: 3
+              Logging__LogLevel__Default: Debug
+              Logging__Console__FormatterName: simple
+              Logging__Console__FormatterOptions__TimestampFormat: "yyyy-MM-dd HH:mm:ss.fff"
+              HomeAssistant__BaseUrl: http://home-assistant.automation.svc.cluster.local:8123
+              HomeAssistant__EntityId: sensor.dynamic_grid_price
+            envFrom:
+              - secretRef:
+                  name: teslamate-secret
     service:
       app:
         controller: teslamate
@@ -61,19 +88,21 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host teslamate.${SECRET_DOMAIN}
+          - host: &host "teslamate.${SECRET_DOMAIN}"
             paths:
               - path: /
+                pathType: Prefix
                 service:
                   identifier: app
                   port: http
         tls:
           - hosts:
               - *host
-
+    postgresql:
+      enabled: false
     resources:
       requests:
-        memory: 250Mi
-        cpu: 50m
+        cpu: 18m
+        memory: 512Mi
       limits:
-        memory: 500Mi
+        memory: 512Mi
