@@ -20,20 +20,20 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
-  backup:
-    retentionPolicy: 7d
-    barmanObjectStore:
-      data:
-        compression: bzip2
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: https://vdhbackupstorage.blob.core.windows.net/cnpg/
-      serverName: &currentCluster postgres-v23 # change/increment when restoring as value cannot match existing cnpg cluster
-      azureCredentials:
-        connectionString:
-          name: cloudnative-pg-secret
-          key: azure-connection-string
+  # backup:
+  #   retentionPolicy: 7d
+  #   barmanObjectStore:
+  #     data:
+  #       compression: bzip2
+  #     wal:
+  #       compression: bzip2
+  #       maxParallel: 8
+  #     destinationPath: https://vdhbackupstorage.blob.core.windows.net/cnpg/
+  #     serverName: &currentCluster postgres-v23 # change/increment when restoring as value cannot match existing cnpg cluster
+  #     azureCredentials:
+  #       connectionString:
+  #         name: cloudnative-pg-secret
+  #         key: azure-connection-string
   # # Note: externalClusters is needed when recovering from an existing cnpg cluster
   # externalClusters:
   #   - name: *previous-cluster
