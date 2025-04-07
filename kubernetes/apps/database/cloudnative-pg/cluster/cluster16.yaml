@@ -28,8 +28,8 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: https://vdhbackupsa.blob.core.windows.net/cnpg/
-      serverName: &currentCluster postgres-v22 # change/increment when restoring as value cannot match existing cnpg cluster
+      destinationPath: https://vdhbackupstorage.blob.core.windows.net/cnpg/
+      serverName: &currentCluster postgres-v23 # change/increment when restoring as value cannot match existing cnpg cluster
       azureCredentials:
         connectionString:
           name: cloudnative-pg-secret
