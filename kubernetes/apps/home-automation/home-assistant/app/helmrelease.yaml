@@ -38,8 +38,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
-              tag: 2025.3.3
+              repository: ghcr.io/home-operations/home-assistant
+              tag: 2025.4.1@sha256:9495fb2aff6e56e13bf8ccc8f57b6e931b37c44ea1ffef69f6ee3fc5a951633a
             env:
               HASS_EXTERNAL_URL: https://home-assistant.${SECRET_DOMAIN}
               HASS_PURGE_KEEP_DAYS: 30
