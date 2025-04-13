@@ -35,8 +35,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/plex
-              tag: 1.41.2.9200-c6bbc1b53@sha256:1f28b5e5a964481f80e76db3c986082d2fc3bca2d16d2742704e9adf8349c79c
+              repository: ghcr.io/home-operations/plex
+              tag: 1.41.6.9685-d301f511a@sha256:05fea4d399a1d630722c190d7413710796db28dee9a649dda80cb2359b052a9c
             env:
               TZ: Europe/Amsterdam
               PLEX_ADVERTISE_URL: https://plex.bluejungle.net:443,http://172.16.2.236:32400
