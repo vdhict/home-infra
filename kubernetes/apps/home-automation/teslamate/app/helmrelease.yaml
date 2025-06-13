@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: teslamate/teslamate
-              tag: 1.33.0
+              tag: 2.0.0
             env:
               TZ: ${TIMEZONE}
               DISABLE_MQTT: "false"
@@ -61,7 +61,7 @@ spec:
           agile:
             image:
               repository: mattjeanes/teslamateagile
-              tag: v1.17.0@sha256:dc0d6eefb4500e34d5125722bcda859b12c030222820fbf81e9df5aa9414a072
+              tag: v1.18.1@sha256:c99ba57ed7763eb4fd204f2289b2480379caee11ac36919af45b71f5e119c809
             env:
               TeslaMate__UpdateIntervalSeconds: 300
               TeslaMate__GeofenceId: 4
