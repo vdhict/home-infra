@@ -4,6 +4,7 @@ kind: HelmRelease
 metadata:
   name: openebs
 spec:
+  releaseName: openebs
   interval: 30m
   chart:
     spec:
