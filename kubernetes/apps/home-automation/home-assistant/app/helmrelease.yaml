@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.6.1@sha256:3d6ba3dc0b7612e9d185068c4de281483153c7b543764554c622b8ff435195f3
+              tag: 2025.8.3@sha256:7ef14f513e487add292b43306cccb4f1cd9dbcbd5eaf85d6438f98b197f930a4
             env:
               HASS_EXTERNAL_URL: https://home-assistant.${SECRET_DOMAIN}
               HASS_PURGE_KEEP_DAYS: 30
@@ -65,7 +65,7 @@ spec:
           code-server:
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.101.1@sha256:d53815bc6b7590a62f20a373bec4a527481b2a3439ae3635d1619d5567abb71c
+              tag: 4.103.2@sha256:f9ed058d6b1a4aa80846f77902d344bd97e450aec69201a0f8939baf58b18a5f
             args: [
               "--auth", "none",
               "--user-data-dir", "/config/.vscode",
