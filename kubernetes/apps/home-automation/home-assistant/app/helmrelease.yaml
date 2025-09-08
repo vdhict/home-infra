@@ -78,17 +78,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-          sshd:
-            image:
-              repository: ghcr.io/davralin/sshd
-              tag: latest@sha256:35a92130252db5b30db6e32d83ca525596926ead2d741eb15cb4605bd27d7a25
-            env:
-              TZ: "Europe/Amsterdam"
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 512Mi
     defaultPodOptions:
       hostNetwork: true
       securityContext:
