@@ -144,6 +144,5 @@ spec:
             port: 8123
           code-server:
             port: 12321
-          sshd:
-            port: 22
+
 
