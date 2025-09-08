@@ -135,8 +135,15 @@ spec:
     service:
       app:
         controller: *app
+        annotations:
+          "lbipam.cilium.io/ips": "172.16.2.237"
+        type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           http:
             port: 8123
           code-server:
             port: 12321
+          ssh:
+            port: 22
+
