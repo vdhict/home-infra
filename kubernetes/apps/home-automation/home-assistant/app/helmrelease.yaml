@@ -115,6 +115,24 @@ spec:
         tls:
           - hosts:
               - *host
+      ssh-server:
+            image:
+              repository: linuxserver/openssh-server
+              tag: latest
+            env:
+              PUID: 568
+              PGID: 568
+              TZ: "Europe/Amsterdam"
+              PUBLIC_KEY_FILE: "/authorized_keys"
+              SUDO_ACCESS: "true"
+              PASSWORD_ACCESS: "false"
+              USER_NAME: "homeassistant"
+              USER_PASSWORD_FILE: "/dev/null"  # Disable password auth
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
     persistence:
       config:
         type: persistentVolumeClaim
@@ -132,6 +150,20 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/tts
+      ssh-keys:
+        type: secret
+        name: home-assistant-ssh-keys
+        globalMounts:
+          - path: /authorized_keys
+            subPath: authorized_keys
+            readOnly: true
+      # NEW: SSH server config
+      ssh-config:
+        type: emptyDir
+        advancedMounts:
+          home-assistant:
+            ssh-server:
+              - path: /config
     service:
       app:
         controller: *app
@@ -144,5 +176,9 @@ spec:
             port: 8123
           code-server:
             port: 12321
+          # NEW: SSH port
+          ssh:
+            port: 2222
+            targetPort: 2222
 
 
