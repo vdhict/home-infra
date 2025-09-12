@@ -158,13 +158,7 @@ spec:
           - path: /authorized_keys
             subPath: authorized_keys
             readOnly: true
-      # NEW: SSH server config
-      ssh-config:
-        type: emptyDir
-        advancedMounts:
-          home-assistant:
-            ssh-server:
-              - path: /config
+
     service:
       app:
         controller: *app
