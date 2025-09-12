@@ -78,6 +78,24 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
+          ssh-server:
+            image:
+              repository: linuxserver/openssh-server
+              tag: latest
+            env:
+              PUID: 568
+              PGID: 568
+              TZ: "Europe/Amsterdam"
+              PUBLIC_KEY_FILE: "/authorized_keys"
+              SUDO_ACCESS: "true"
+              PASSWORD_ACCESS: "false"
+              USER_NAME: "homeassistant"
+              USER_PASSWORD_FILE: "/dev/null"  # Disable password auth
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
     defaultPodOptions:
       hostNetwork: true
       securityContext:
@@ -115,24 +133,7 @@ spec:
         tls:
           - hosts:
               - *host
-      ssh-server:
-            image:
-              repository: linuxserver/openssh-server
-              tag: latest
-            env:
-              PUID: 568
-              PGID: 568
-              TZ: "Europe/Amsterdam"
-              PUBLIC_KEY_FILE: "/authorized_keys"
-              SUDO_ACCESS: "true"
-              PASSWORD_ACCESS: "false"
-              USER_NAME: "homeassistant"
-              USER_PASSWORD_FILE: "/dev/null"  # Disable password auth
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 256Mi
+
     persistence:
       config:
         type: persistentVolumeClaim
