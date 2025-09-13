@@ -177,8 +177,7 @@ spec:
           code-server:
             port: 12321
           # NEW: SSH port
-          ssh:
+          ssh-server:
             port: 2222
-            targetPort: 2222
 
 
