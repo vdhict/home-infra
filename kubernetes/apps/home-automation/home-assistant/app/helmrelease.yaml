@@ -89,6 +89,9 @@ spec:
               SUDO_ACCESS: "true"
               PASSWORD_ACCESS: "false"
               USER_NAME: "homeassistant"
+            envFrom:
+              - secretRef:
+                  name: home-assistant-ssh-keys
             securityContext:
               runAsUser: 0            # <- root
               runAsNonRoot: false     # <- explicitly allow root
