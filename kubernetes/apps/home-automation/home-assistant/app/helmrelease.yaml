@@ -87,7 +87,7 @@ spec:
               PGID: 568
               TZ: "Europe/Amsterdam"
               SUDO_ACCESS: "true"
-              PASSWORD_ACCESS: "false"
+              PASSWORD_ACCESS: "true"
               USER_NAME: "homeassistant"
             envFrom:
               - secretRef:
