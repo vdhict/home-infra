@@ -89,8 +89,6 @@ spec:
               PUBLIC_KEY_FILE: "/authorized_keys"
               SUDO_ACCESS: "true"
               PASSWORD_ACCESS: "false"
-              USER_NAME: "homeassistant"
-              USER_PASSWORD_FILE: "/dev/null"  # Disable password auth
             resources:
               requests:
                 cpu: 10m
