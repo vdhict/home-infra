@@ -178,6 +178,7 @@ spec:
             port: 12321
           # NEW: SSH port
           ssh-server:
-            port: 2222
+            port: 22
+            targetPort: 2222
 
 
