@@ -157,6 +157,14 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/tts
+
+      init:
+        type: configMap
+        name: config-initializer
+        defaultMode: 0777
+        globalMounts:
+          - path: /etc/cont-init.d/45-config
+            subPath: 45-config
     service:
       app:
         controller: *app
