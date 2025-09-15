@@ -157,13 +157,6 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/tts
-      ssh-keys:
-        type: secret
-        name: home-assistant-ssh-keys
-        globalMounts:
-          - path: /authorized_keys
-            subPath: authorized_keys
-            readOnly: true
     service:
       app:
         controller: *app
