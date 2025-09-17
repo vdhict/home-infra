@@ -165,6 +165,7 @@ spec:
         globalMounts:
           - path: /etc/cont-init.d/45-config
             subPath: 45-config
+            
     service:
       app:
         controller: *app
