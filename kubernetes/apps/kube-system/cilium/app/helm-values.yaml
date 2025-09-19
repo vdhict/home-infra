@@ -7,6 +7,7 @@ bpf:
   masquerade: false # Required for Talos `.machine.features.hostDNS.forwardKubeDNSToHost` - For now changed to true due to cilium/talos issue
   preallocateMaps: true
   tproxy: true
+  hostLegacyRouting: true
 cgroup:
   automount:
     enabled: false
