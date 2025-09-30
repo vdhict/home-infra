@@ -78,30 +78,7 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-          ssh-server:
-            image:
-              repository: linuxserver/openssh-server
-              tag: latest
-            env:
-              PUID: 568
-              PGID: 568
-              TZ: "Europe/Amsterdam"
-              SUDO_ACCESS: "true"
-              PASSWORD_ACCESS: "true"
-              USER_NAME: "homeassistant"
-              PUBLIC_KEY_FILE: /sshd/authorized_keys
-            envFrom:
-              - secretRef:
-                  name: home-assistant-ssh-keys
-            securityContext:
-              runAsUser: 0            # <- root
-              runAsNonRoot: false     # <- explicitly allow root
-              allowPrivilegeEscalation: false
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 256Mi
+
     defaultPodOptions:
       hostNetwork: true
       securityContext:
@@ -143,7 +120,7 @@ spec:
     persistence:
       config:
         type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 75Gi
         globalMounts:
           - path: /config
@@ -158,14 +135,6 @@ spec:
         globalMounts:
           - path: /config/tts
 
-      init:
-        type: configMap
-        name: config-initializer
-        defaultMode: 0777
-        globalMounts:
-          - path: /etc/cont-init.d/45-config
-            subPath: 45-config
-            
     service:
       app:
         controller: *app
@@ -178,10 +147,6 @@ spec:
             port: 8123
           code-server:
             port: 12321
-          # NEW: SSH port
-          ssh:
-            port: 22
-            protocol: TCP
-            targetPort: 2222
+
 
 
