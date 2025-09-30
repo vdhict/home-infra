@@ -41,7 +41,7 @@ spec:
               repository: ghcr.io/home-operations/home-assistant
               tag: 2025.9.4@sha256:55c7db16301626265c6c8132985137ca0798303773dafa244e562353baa93a6f
             env:
-              HASS_EXTERNAL_URL: https://home-assistant.${SECRET_DOMAIN}
+              HASS_EXTERNAL_URL: https://hass.${SECRET_DOMAIN}
               HASS_PURGE_KEEP_DAYS: 30
               HASS_UNIT_SYSTEM: metric
               TZ: "Europe/Amsterdam"
@@ -118,7 +118,7 @@ spec:
     persistence:
       config:
         type: persistentVolumeClaim
-        accessMode: ReadWriteMany
+        accessMode: ReadWriteOnce
         size: 75Gi
         globalMounts:
           - path: /config
