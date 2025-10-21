@@ -13,5 +13,5 @@ resources:
   - zigbee2mqtt/ks.yaml
 #  - scrypted/ks.yaml
 #  - teslamate/ks.yaml
-#  - mealie/ks.yaml
+  - mealie/ks.yaml
 
