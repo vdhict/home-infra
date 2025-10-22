@@ -40,7 +40,7 @@ spec:
               SMTP_FROM_NAME: Mealie
               SMTP_FROM_EMAIL: noreply@${SECRET_DOMAIN}
               SMTP_AUTH_STRATEGY: TLS
-              OPENAI_BASE_URL: https://openrouter.ai/api/v1
+#              OPENAI_BASE_URL: https://openrouter.ai/api/v1
             envFrom: *envFrom
             resources:
               requests:
