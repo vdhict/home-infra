@@ -13,21 +13,26 @@ spec:
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
+  replicationSlots:
+    highAvailability:
+      enabled: true
   postgresql:
     parameters:
+      wal_keep_size: "4GB"
       max_connections: "600"
-      max_slot_wal_keep_size: 10GB
+      max_slot_wal_keep_size: "20GB"
+      max_replication_slots: "16"
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
   backup:
-    retentionPolicy: 7d
+    retentionPolicy: 3d
     barmanObjectStore:
       data:
         compression: bzip2
       wal:
         compression: bzip2
-        maxParallel: 8
+        maxParallel: 2
       destinationPath: https://vdhbackupstorage.blob.core.windows.net/cnpg/
       serverName: &currentCluster postgres-v23 # change/increment when restoring as value cannot match existing cnpg cluster
       azureCredentials:

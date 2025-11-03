@@ -46,8 +46,8 @@ spec:
       defaultReplicaCount: 3
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
-      storageMinimalAvailablePercentage: 5
-      storageOverProvisioningPercentage: 110
+      storageMinimalAvailablePercentage: "5"
+      storageOverProvisioningPercentage: "110"
       defaultDataPath: "/var/mnt/sata/"
     resources:
       requests:

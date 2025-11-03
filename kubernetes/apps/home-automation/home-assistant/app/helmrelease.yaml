@@ -39,9 +39,9 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.8.3@sha256:7ef14f513e487add292b43306cccb4f1cd9dbcbd5eaf85d6438f98b197f930a4
+              tag: 2025.10.3@sha256:94c9906ffd11a2958ca07235686ab30927a7b0a684856f9a8c2f7d2b1a6e2e21
             env:
-              HASS_EXTERNAL_URL: https://home-assistant.${SECRET_DOMAIN}
+              HASS_EXTERNAL_URL: https://hass.${SECRET_DOMAIN}
               HASS_PURGE_KEEP_DAYS: 30
               HASS_UNIT_SYSTEM: metric
               TZ: "Europe/Amsterdam"
@@ -65,7 +65,7 @@ spec:
           code-server:
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.103.2@sha256:f9ed058d6b1a4aa80846f77902d344bd97e450aec69201a0f8939baf58b18a5f
+              tag: 4.105.1@sha256:2d48970bd2084aa34a522d772b6a437981ea80407465b3bf7958553985c570e1
             args: [
               "--auth", "none",
               "--user-data-dir", "/config/.vscode",
@@ -78,13 +78,14 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
+
     defaultPodOptions:
       hostNetwork: true
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: OnRootMismatch
     ingress:
       app:
@@ -115,28 +116,29 @@ spec:
         tls:
           - hosts:
               - *host
+
     persistence:
       config:
         type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 75Gi
         globalMounts:
           - path: /config
-      logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
       tmp:
         type: emptyDir
-      tts:
-        type: emptyDir
-        globalMounts:
-          - path: /config/tts
+
     service:
       app:
         controller: *app
+        annotations:
+          "lbipam.cilium.io/ips": "172.16.2.237"
+        type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           http:
             port: 8123
           code-server:
             port: 12321
+
+
+

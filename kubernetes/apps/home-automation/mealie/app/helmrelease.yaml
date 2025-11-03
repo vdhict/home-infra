@@ -1,37 +1,18 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: mealie
-  namespace: home-automation
+  name: &app mealie
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  chartRef:
+    kind: OCIRepository
+    name: mealie
 
   values:
     controllers:
-      mealie:
+      *app:
         annotations:
           reloader.stakater.com/auto: "true"
 
@@ -46,10 +27,10 @@ spec:
                   name: mealie-secret
 
         containers:
-          app:
+          *app:
             image:
               repository: ghcr.io/mealie-recipes/mealie
-              tag: v3.1.2@sha256:d872fb529097df2d77b3c6f5e469b047f99d0d1c9f793a84ae27aa106e1f5d7e
+              tag: v3.3.2@sha256:d51ae3b5051439844c1bbe437fb7edffa0826cb9988b366e17ffc7170a8d5ed2
             env:
               TZ: "Europe/Amsterdam"
               BASE_URL: https://mealie.${SECRET_DOMAIN}
@@ -59,7 +40,9 @@ spec:
               SMTP_FROM_NAME: Mealie
               SMTP_FROM_EMAIL: noreply@${SECRET_DOMAIN}
               SMTP_AUTH_STRATEGY: TLS
+              DAILY_SCHEDULE_TIME: 01:45
               OPENAI_BASE_URL: https://openrouter.ai/api/v1
+              OPENAI_MODEL: openai/gpt-5-mini
             envFrom: *envFrom
             resources:
               requests:
@@ -69,22 +52,24 @@ spec:
                 memory: 500Mi
 
     service:
-      app:
+      *app:
         controller: mealie
         ports:
           http:
             port: 9000
 
     ingress:
-      app:
+      *app:
         enabled: true
         className: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
           - host: "mealie.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: *app
                   port: http
 
     persistence:
