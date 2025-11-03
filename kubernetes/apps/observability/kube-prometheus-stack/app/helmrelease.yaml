@@ -33,6 +33,7 @@ spec:
   values:
     crds:
       enabled: false
+    cleanPrometheusOperatorObjectNames: true
     alertmanager:
       ingress:
         enabled: true
