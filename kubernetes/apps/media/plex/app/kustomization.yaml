@@ -5,6 +5,6 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./oci-repository.yaml
+  - ./ocirepository.yaml
   - ./pvc.yaml
 
