@@ -127,6 +127,13 @@ spec:
       tmp:
         type: emptyDir
 
+      homedir:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteMany
+        size: 10Gi
+        globalMounts:
+          - path: /root
+
     service:
       app:
         controller: *app
