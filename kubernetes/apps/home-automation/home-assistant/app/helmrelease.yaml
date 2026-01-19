@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.10.3@sha256:94c9906ffd11a2958ca07235686ab30927a7b0a684856f9a8c2f7d2b1a6e2e21
+              tag: 2026.1.2@sha256:9587276dcc680f8210115015508cd02d19f6921cdbff6bf119453fc4a8e10969
             env:
               HASS_EXTERNAL_URL: https://hass.${SECRET_DOMAIN}
               HASS_PURGE_KEEP_DAYS: 30
@@ -55,7 +55,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 1Gi
+                memory: 5Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -65,7 +65,7 @@ spec:
           code-server:
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.105.1@sha256:2d48970bd2084aa34a522d772b6a437981ea80407465b3bf7958553985c570e1
+              tag: 4.108.1@sha256:867b9a9dedd68f1b46e308cad9525e419db7b0ce0c83831f6a350f37ee7ff6fd
             args: [
               "--auth", "none",
               "--user-data-dir", "/config/.vscode",
@@ -77,7 +77,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 5Gi
 
     defaultPodOptions:
       hostNetwork: true
@@ -126,6 +126,13 @@ spec:
           - path: /config
       tmp:
         type: emptyDir
+
+      homedir:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteMany
+        size: 10Gi
+        globalMounts:
+          - path: /root
 
     service:
       app:
