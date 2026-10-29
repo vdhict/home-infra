@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: dpage/pgadmin4
-              tag: 9.13@sha256:d243a4bcc02d2ee6b447c601692813531d2d0fbca18b583d9f7f9658da835d81
+              tag: 9.19@sha256:3591b3d02910dcd817dec6fcaa681c278ba6966945283dd0ea0042731c330c83
             env:
               PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
             envFrom:
